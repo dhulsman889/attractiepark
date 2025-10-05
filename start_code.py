@@ -53,27 +53,26 @@ def fetch_onderhoudstaken(max_fysieke_belasting):
         print("Stagiair")
         select_onderhoudstaken = f"SELECT * FROM onderhoudstaak WHERE afgerond = 0 AND bevoegdheid = 'Stagiair' AND fysieke_belasting <= {max_fysieke_belasting}"
 
-    onderhoudstaken = db.execute(select_onderhoudstaken)
+    db.execute(select_onderhoudstaken)
 
-    onderhoudstaken_data = db.fetchall(onderhoudstaken)
+    onderhoudstaken_data = db.fetchall()
 
     print(onderhoudstaken_data[0][1], onderhoudstaken_data[0][2], onderhoudstaken_data[0][3], onderhoudstaken_data[0][4], onderhoudstaken_data[0][5])
-    return(onderhoudstaken_data)
+    return onderhoudstaken_data
 
 # Haal alle onderhoudstaken op die nog niet afgerond zijn en die het personeelslid mag uitvoeren
-if(personeelslid_data[8] > 0):
-    if(personeelslid_data[7] <= 24):
-        max_fysieke_belasting = 25 - personeelslid_data[8]
-        taken = fetch_onderhoudstaken(max_fysieke_belasting)
-        print(taken)
-    elif(personeelslid_data[7] > 24 and personeelslid_data[7] <= 50):
-        max_fysieke_belasting = 40 - personeelslid_data[8]
-        taken = fetch_onderhoudstaken(max_fysieke_belasting)
-        print(taken)
-    else:
-        max_fysieke_belasting = 20 - personeelslid_data[8]
-        taken = fetch_onderhoudstaken(max_fysieke_belasting)
-        print(taken)
+if(personeelslid_data[7] <= 24):
+    max_fysieke_belasting = 25 - personeelslid_data[8]
+    taken = fetch_onderhoudstaken(max_fysieke_belasting)
+    print(taken)
+elif(personeelslid_data[7] > 24 and personeelslid_data[7] <= 50):
+    max_fysieke_belasting = 40 - personeelslid_data[8]
+    taken = fetch_onderhoudstaken(max_fysieke_belasting)
+    print(taken)
+else:
+    max_fysieke_belasting = 20 - personeelslid_data[8]
+    taken = fetch_onderhoudstaken(max_fysieke_belasting)
+    print(taken)
 
 # altijd verbinding sluiten met de database als je klaar bent
 db.close()
@@ -83,18 +82,18 @@ db.close()
 
 
 # verzamel alle benodigde gegevens in een dictionary
-# dagtakenlijst = {
-#     "personeelsgegevens" : {
-#         "naam": personeelslid[0]['naam'] # voorbeeld van hoe je bij een eigenschap komt
-#         # STAP 1: vul aan met andere benodigde eigenschappen
-#     },
-#     "weergegevens" : {
-#         # STAP 4: vul aan met weergegevens
-#     }, 
-#     "dagtaken": [] # STAP 2: hier komt een lijst met alle dagtaken
-#     ,
-#     "totale_duur": 0 # STAP 3: aanpassen naar daadwerkelijke totale duur
-# }
+dagtakenlijst = {
+    "personeelsgegevens" : {
+        "naam": personeelslid_data['naam'] # voorbeeld van hoe je bij een eigenschap komt
+        # STAP 1: vul aan met andere benodigde eigenschappen
+    },
+    "weergegevens" : {
+        # STAP 4: vul aan met weergegevens
+    }, 
+    "dagtaken": [] # STAP 2: hier komt een lijst met alle dagtaken
+    ,
+    "totale_duur": 0 # STAP 3: aanpassen naar daadwerkelijke totale duur
+}
 
 # uiteindelijk schrijven we de dictionary weg naar een JSON-bestand, die kan worden ingelezen door de acceptatieomgeving
 # with open('dagtakenlijst_personeelslid_x.json', 'w') as json_bestand_uitvoer:
