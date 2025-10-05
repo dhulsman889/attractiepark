@@ -26,36 +26,59 @@ db = mydb.cursor()
 # Haal de eigenschappen op van een personeelslid
 # altijd verbinding openen om query's uit te voeren
 
+personeelslid_id = input("Voer het ID van het personeelslid in: ")
+
 # pas deze query aan om het juiste personeelslid te selecteren
-select_query = "SELECT * FROM personeelslid WHERE id = 1"
-personeelslid = db.execute(select_query)
+personeelslid_query = f"SELECT * FROM personeelslid WHERE id = {personeelslid_id}"
+personeelslid = db.execute(personeelslid_query)
 
-myresult = db.fetchone()
+personeelslid_data = db.fetchone()
 
-if myresult:
-    pprint.pp(myresult)
+if personeelslid_data:
+    pprint.pp(personeelslid_data)
 else:
     print("Geen personeelslid gevonden met het opgegeven ID.")
+
+def fetch_onderhoudstaken(max_fysieke_belasting):
+    if (personeelslid_data[4] == 'Senior'):
+        print("Senior")
+        select_onderhoudstaken = f"SELECT * FROM onderhoudstaak WHERE afgerond = 0 AND fysieke_belasting <= {max_fysieke_belasting}"
+    elif (personeelslid_data[4] == 'Medior'):
+        print("Medior")
+        select_onderhoudstaken = f"SELECT * FROM onderhoudstaak WHERE afgerond = 0 AND bevoegdheid IN ('Medior', 'Junior', 'Stagiair') AND fysieke_belasting <= {max_fysieke_belasting}"
+    elif (personeelslid_data[4] == 'Junior'):
+        print("Junior")
+        select_onderhoudstaken = f"SELECT * FROM onderhoudstaak WHERE afgerond = 0 AND bevoegdheid IN ('Junior', 'Stagiair') AND fysieke_belasting <= {max_fysieke_belasting}"
+    else:
+        print("Stagiair")
+        select_onderhoudstaken = f"SELECT * FROM onderhoudstaak WHERE afgerond = 0 AND bevoegdheid = 'Stagiair' AND fysieke_belasting <= {max_fysieke_belasting}"
+
+    onderhoudstaken = db.execute(select_onderhoudstaken)
+
+    onderhoudstaken_data = db.fetchall(onderhoudstaken)
+
+    print(onderhoudstaken_data[0][1], onderhoudstaken_data[0][2], onderhoudstaken_data[0][3], onderhoudstaken_data[0][4], onderhoudstaken_data[0][5])
+    return(onderhoudstaken_data)
+
+# Haal alle onderhoudstaken op die nog niet afgerond zijn en die het personeelslid mag uitvoeren
+if(personeelslid_data[8] > 0):
+    if(personeelslid_data[7] <= 24):
+        max_fysieke_belasting = 25 - personeelslid_data[8]
+        taken = fetch_onderhoudstaken(max_fysieke_belasting)
+        print(taken)
+    elif(personeelslid_data[7] > 24 and personeelslid_data[7] <= 50):
+        max_fysieke_belasting = 40 - personeelslid_data[8]
+        taken = fetch_onderhoudstaken(max_fysieke_belasting)
+        print(taken)
+    else:
+        max_fysieke_belasting = 20 - personeelslid_data[8]
+        taken = fetch_onderhoudstaken(max_fysieke_belasting)
+        print(taken)
+
 # altijd verbinding sluiten met de database als je klaar bent
-# db.close()
+db.close()
 
-# pprint.pp(personeelslid) # print de resultaten van de query op een overzichtelijke manier
-# print(personeelslid[0]['naam'])
-
-
-
-# Haal alle onderhoudstaken op
-# altijd verbinding openen om query's uit te voeren
-# db.connect()
-
-# pas deze query aan en voeg queries toe om de juiste onderhoudstaken op te halen
-# select_query = "SELECT * FROM onderhoudstaak"
-# onderhoudstaken = db.execute(select_query)
-
-# altijd verbinding sluiten met de database als je klaar bent
-# db.close()
-
-# pprint.pp(onderhoudstaken) # print de resultaten van de query op een overzichtelijke manier
+# pprint.pp(onderhoudstaken_data) # print de resultaten van de query op een overzichtelijke manier
 
 
 
