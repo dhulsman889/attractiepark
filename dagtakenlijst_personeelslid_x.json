@@ -1,0 +1,73 @@
+{
+    "personeelsgegevens": {
+        "naam": "Diego Martinez",
+        "werktijden": 360,
+        "bevoegdheid": "Senior",
+        "verlaagde_fysieke_belasting": 0,
+        "max_fysieke_belasting": 20
+    },
+    "weergegevens": {},
+    "dagtaken": [
+        [
+            0,
+            60,
+            "Taak: Vervanging van panelen"
+        ],
+        [
+            60,
+            105,
+            "Taak: Reparatie van algemene decoraties"
+        ],
+        [
+            105,
+            120,
+            "Taak: Herstel van decoratieve lampen (deels)"
+        ],
+        [
+            120,
+            135,
+            "Pauze 1 (15 min)"
+        ],
+        [
+            135,
+            180,
+            "Taak: Herstel van decoratieve lampen"
+        ],
+        [
+            180,
+            225,
+            "Taak: Reparatie van algemene decoraties"
+        ],
+        [
+            225,
+            240,
+            "Taak: Bijwerken van verf op attractiepanelen (deels)"
+        ],
+        [
+            240,
+            255,
+            "Pauze 2 (15 min)"
+        ],
+        [
+            255,
+            270,
+            "Taak: Bijwerken van verf op attractiepanelen"
+        ],
+        [
+            270,
+            300,
+            "Taak: Schilderen van decoratieve randen"
+        ],
+        [
+            300,
+            345,
+            "Taak: Aanbrengen van grondverf op relingen"
+        ],
+        [
+            345,
+            360,
+            "Taak: Bijwerken van verf op houten banken (deels)"
+        ]
+    ],
+    "totale_duur": 495
+}
