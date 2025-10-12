@@ -1,0 +1,69 @@
+{
+    "personeel": { 
+        "naam" : "Voorbeeld",
+        "werktijd": 480,
+        "beroepstype": "Mechanisch Monteur",
+        "bevoegdheid": "Senior",
+        "specialist_in_attracties": ["Mega Spin", "River Rapids", "Twister"],
+        "pauze_opsplitsen": false,
+        "max_fysieke_belasting": 30
+    },
+    "weergegevens": {
+        "temperatuur": 20,
+        "kans_op_regen": 50
+
+    },
+    "onderhoudstaken": [
+        { 
+            "omschrijving": "Smeren van liftmechanisme", 
+            "duur": 30, 
+            "prioriteit": "Hoog",
+            "bevoegdheid": "Senior",
+            "fysieke_belasting": null,
+            "attractie": "River Rapids",
+            "is_buitenwerk": true
+        },
+        {
+            "omschrijving": "Pauze", 
+            "duur": 30
+        },
+        {
+            "omschrijving": "Testen van hydraulische remmen",
+            "duur": 45, 
+            "prioriteit": "Hoog",
+            "bevoegdheid": "Senior",
+            "fysieke_belasting": null,
+            "attractie": "River Rapids",
+            "is_buitenwerk": true
+        }, 
+        {
+            "type": "storingen",
+            "alternatieve_onderhoudstaken": [
+                {
+                    "omschrijving": "Smeren van kettingen", 
+                    "duur": 30, 
+                    "prioriteit": "Laag",
+                    "bevoegdheid": "Medior",
+                    "fysieke_belasting": 35,
+                    "attractie": null,
+                    "is_buitenwerk": true
+                }, 
+                {
+                    "omschrijving": "Smeren van rails", 
+                    "duur": 30, 
+                    "prioriteit": "Laag",
+                    "bevoegdheid": "Junior",
+                    "fysieke_belasting": 10,
+                    "attractie": null,
+                    "is_buitenwerk": true
+                }
+            ]
+        },
+        {
+            "omschrijving": "Administratietijd",
+            "aantal_taken": 4,
+            "duur": 8
+        }
+    ],
+    "totale_duur": 143
+}

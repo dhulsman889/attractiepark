@@ -28,7 +28,6 @@ db = mydb.cursor()
 
 personeelslid_id = input("Voer het ID van het personeelslid in: ")
 
-# pas deze query aan om het juiste personeelslid te selecteren
 personeelslid_query = f"SELECT * FROM personeelslid WHERE id = {personeelslid_id}"
 personeelslid = db.execute(personeelslid_query)
 
@@ -75,27 +74,8 @@ for taak in taken:
 mydb.close()
 
 def generate_schedule(taken, werktijd, pauze_opsplitsen):
-    # defensive inputs
-    try:
-        werktijd = int(werktijd)
-    except Exception:
-        werktijd = 0
+    werktijd = int(werktijd)
     pauze_opsplitsen = bool(pauze_opsplitsen)
-
-    # Normalize DB rows (tuples) into mutable dicts with integer durations
-    norm_taken = []
-    for row in taken:
-        naam = row[1] if len(row) > 1 else '<onbekend>'
-        try:
-            duur = int(row[2]) if row[2] is not None else 0
-        except Exception:
-            try:
-                duur = int(str(row[2]))
-            except Exception:
-                duur = 0
-        norm_taken.append({'id': row[0] if len(row) > 0 else None, 'naam': naam, 'duur': duur})
-
-    taken = norm_taken
 
     rooster = []
     tijd = 0
@@ -110,7 +90,7 @@ def generate_schedule(taken, werktijd, pauze_opsplitsen):
 
     while tijd < werktijd and taken_idx < len(taken):
         taak = taken[taken_idx]
-        duur = taak['duur']
+        duur = int(taak.get('duur', 0))
 
         # Check of de volgende pauze midden in deze taak valt en of de pauze volledig past
         if volgende_pauze < len(pauzes):
@@ -119,40 +99,90 @@ def generate_schedule(taken, werktijd, pauze_opsplitsen):
                 # Plan deel van taak tot pauze
                 until = bp - tijd
                 if until > 0:
-                    rooster.append((tijd, tijd + until, f"Taak: {taak['naam']} (deels)"))
-                    taak['duur'] -= until
+                    scheduled = {
+                        'omschrijving': taak.get('naam') or taak.get('omschrijving') or '<onbekend>',
+                        'duur': until,
+                        'start': tijd,
+                        'eind': tijd + until,
+                        'beroepstype': taak.get('beroepstype'),
+                        'bevoegdheid': taak.get('bevoegdheid'),
+                        'fysieke_belasting': taak.get('fysieke_belasting'),
+                        'attractie': taak.get('attractie'),
+                        'prioriteit': taak.get('prioriteit')
+                    }
+                    rooster.append(scheduled)
+                    taak['duur'] = duur - until
                     tijd += until
                 # Plan pauze
-                rooster.append((tijd, tijd + bd, bl))
+                rooster.append({'omschrijving': bl, 'duur': bd, 'start': tijd, 'eind': tijd + bd})
                 tijd += bd
                 volgende_pauze += 1
                 continue
 
         # Plan (resterende) taak volledig als er ruimte is, anders plan gedeeltelijk en stop
         if tijd + duur <= werktijd:
-            rooster.append((tijd, tijd + duur, f"Taak: {taak['naam']}"))
+            scheduled = {
+                'omschrijving': taak.get('naam') or taak.get('omschrijving') or '<onbekend>',
+                'duur': duur,
+                'start': tijd,
+                'eind': tijd + duur,
+                'beroepstype': taak.get('beroepstype'),
+                'bevoegdheid': taak.get('bevoegdheid'),
+                'fysieke_belasting': taak.get('fysieke_belasting'),
+                'attractie': taak.get('attractie'),
+                'prioriteit': taak.get('prioriteit')
+            }
+            rooster.append(scheduled)
             tijd += duur
             taken_idx += 1
         else:
             resterend = werktijd - tijd
             if resterend > 0:
-                rooster.append((tijd, tijd + resterend, f"Taak: {taak['naam']} (deels)"))
+                scheduled = {
+                    'omschrijving': taak.get('naam') or taak.get('omschrijving') or '<onbekend>',
+                    'duur': resterend,
+                    'start': tijd,
+                    'eind': tijd + resterend,
+                    'beroepstype': taak.get('beroepstype'),
+                    'bevoegdheid': taak.get('bevoegdheid'),
+                    'fysieke_belasting': taak.get('fysieke_belasting'),
+                    'attractie': taak.get('attractie'),
+                    'prioriteit': taak.get('prioriteit')
+                }
+                rooster.append(scheduled)
             tijd = werktijd
             break
 
     # Plan eventuele nog niet ingeplande pauzes die volledig binnen werktijd passen
     while volgende_pauze < len(pauzes):
         bp, bd, bl = pauzes[volgende_pauze]
-        if bp + bd <= werktijd and all(not (s == bp and e == bp + bd and lbl == bl) for s, e, lbl in rooster):
-            # Voeg alleen toe als de pauze nog niet overlapt met bestaande items
-            rooster.append((bp, bp + bd, bl))
+        if bp + bd <= werktijd and all(not (s == bp and e == bp + bd and lbl == bl) for s, e, lbl in [(r.get('start'), r.get('eind'), r.get('omschrijving')) for r in rooster if 'start' in r]):
+            rooster.append({'omschrijving': bl, 'duur': bd, 'start': bp, 'eind': bp + bd})
         volgende_pauze += 1
 
     # Sorteer op starttijd en return
-    rooster.sort(key=lambda x: x[0])
+    rooster.sort(key=lambda x: x.get('start', 0))
     return rooster
 
 # verzamel alle benodigde gegevens in een dictionary
+norm_taken = []
+for row in taken:
+    taak_dict = {
+        'id': row[0] if len(row) > 0 else None,
+        'omschrijving': row[1] if len(row) > 1 else None,
+        'naam': row[1] if len(row) > 1 else None,
+        'duur': int(row[2]) if len(row) > 2 and row[2] is not None else 0,
+        'prioriteit': row[3] if len(row) > 3 else None,
+        'beroepstype': row[4] if len(row) > 4 else None,
+        'bevoegdheid': row[5] if len(row) > 5 else None,
+        'fysieke_belasting': row[6] if len(row) > 6 else None,
+        'attractie': row[7] if len(row) > 7 else None,
+        'is_buitenwerk': None
+    }
+    norm_taken.append(taak_dict)
+
+totale_duur = sum(t.get('duur', 0) for t in norm_taken)
+
 dagtakenlijst = {
     "personeelsgegevens" : {
         "naam": personeelslid_data[1],
@@ -164,9 +194,8 @@ dagtakenlijst = {
     "weergegevens" : {
         # STAP 4: vul aan met weergegevens
     }, 
-    "dagtaken": generate_schedule(taken, personeelslid_data[2], personeelslid_data[6])
-    ,
-    "totale_duur": sum(taak[2] for taak in taken) # STAP 3: aanpassen naar daadwerkelijke totale duur
+    "dagtaken": generate_schedule(norm_taken, personeelslid_data[2], personeelslid_data[6]),
+    "totale_duur": totale_duur
 }
 
 # uiteindelijk schrijven we de dictionary weg naar een JSON-bestand, die kan worden ingelezen door de acceptatieomgeving

@@ -1,0 +1,173 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0
+}
+
+h1 {
+    color: #333;
+}
+
+#onderhoudstakenContainer, #gegevensContainer {
+    margin-top: 20px;
+    width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.attractie, .voorkeur {   
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.attractie-activiteit {
+    background-color: black;
+    color: white;
+    padding: 5px;
+    font-weight: bold;
+}
+
+.voorkeur {
+    background-color: #fff;
+    border: 1px solid #ddd;
+}
+
+.attractie {
+    display: inline-block; 
+    box-sizing: border-box;
+    width: calc(333px);
+}
+
+.attractie-header, .voorkeur-header {
+    font-size: 20px;
+    color: #5a5a5a;
+}
+
+.attractie-info, .voorkeur-info {
+    margin-top: 5px;
+    font-size: 16px;
+    color: #888;
+}
+
+
+ul, li {
+    list-style: none;
+    padding: 0;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 1rem;
+    background: linear-gradient(45deg, #ff9e20, #68e0cf);
+    padding: 3rem 0;
+}
+
+.wrapper {
+    background: #eaf6ff;
+    padding: 2rem;
+    border-radius: 15px;
+    min-width: 800px;
+    min-height: 600px;
+}
+
+h1 {
+    font-size: 1.1rem;
+    font-family: sans-serif;
+}
+
+#sessions {
+    margin-top: 2rem;
+    border-radius: 12px;
+    position: relative;
+}
+
+.pauze {
+    border-left: 2px dotted #abaaed;
+}
+
+.spoedreparatie {
+    background-color: #f8b5b52e;
+    border: 1px solid #ddd;
+    padding-top: 10px;
+    padding-left: 10px;
+    border-radius: 5px;
+    margin-bottom: 16px;
+}
+
+li {
+    padding-bottom: 5px;
+    border-left: 2px solid #abaaed;
+    position: relative;
+    padding-left: 20px;
+    margin-left: 10px;
+}
+
+li:last-child {
+    border: 0px;
+    padding-bottom: 0;
+}
+
+li:before {
+    content: '';
+    width: 15px;
+    height: 15px;
+    background: white;
+    border: 2px solid #4e5ed3;
+    box-shadow: 3px 3px 0px #bab5f8;
+    border-radius: 50%;
+    position: absolute;
+    left: -10px;
+    top: 0px;
+}
+
+.time {
+    color: #2a2839;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+}
+
+@media screen and (min-width: 601px) {
+    .time {
+        font-size: 0.9rem;
+   }
+}
+
+@media screen and (max-width: 600px) {
+    .time {
+        margin-bottom: 0.3rem;
+        font-size: 0.85rem;
+   }
+}
+
+p {
+    color: #4f4f4f;
+    font-family: sans-serif;
+    line-height: 1.5;
+    margin-top: 0.4rem;
+}
+
+@media screen and (max-width: 600px) {
+    p {
+        font-size: 0.9rem;
+   }
+}
+
+.acceptatie {
+    background: linear-gradient(45deg, #ff2020, #dba309);
+    padding: 15px;
+    color: white;
+}
+
+.acceptatie h1 {
+    color: white;
+}
+
+.footer {
+    margin-top: 25px;
+    color: rgba(255, 255, 255, 0.512);
+    font-size: 8pt;
+}

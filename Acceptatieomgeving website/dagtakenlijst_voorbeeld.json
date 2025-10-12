@@ -1,0 +1,73 @@
+{
+    "personeelsgegevens": {
+        "naam" : "Voorbeeld",
+        "werktijd": 180,
+        "beroepstype": "Mechanisch Monteur",
+        "bevoegdheid": "Senior",
+        "specialist_in_attracties": ["Mega Spin", "River Rapids", "Twister"],
+        "pauze_opsplitsen": false,
+        "max_fysieke_belasting": 30
+    },
+    "weergegevens": {
+        "temperatuur": 20,
+        "kans_op_regen": 50
+
+    },
+    "dagtaken": [
+        { 
+            "omschrijving": "Smeren van liftmechanisme", 
+            "duur": 90, 
+            "prioriteit": "Hoog",
+            "beroepstype": "Mechanisch Monteur",
+            "bevoegdheid": "Senior",
+            "fysieke_belasting": null,
+            "attractie": "River Rapids",
+            "is_buitenwerk": true
+        },
+        {
+            "omschrijving": "Pauze", 
+            "duur": 30
+        },
+        {
+            "type": "storingen",
+            "alternatieve_onderhoudstaken": [
+                {
+                    "omschrijving": "Smeren van kettingen", 
+                    "duur": 30, 
+                    "prioriteit": "Laag",
+                    "beroepstype": "Mechanisch Monteur",
+                    "bevoegdheid": "Medior",
+                    "fysieke_belasting": 25,
+                    "attractie": null,
+                    "is_buitenwerk": true
+                }, 
+                {
+                    "omschrijving": "Smeren van rails", 
+                    "duur": 30, 
+                    "prioriteit": "Laag",
+                    "beroepstype": "Mechanisch Monteur",
+                    "bevoegdheid": "Junior",
+                    "fysieke_belasting": 10,
+                    "attractie": null,
+                    "is_buitenwerk": true
+                }
+            ]
+        },
+        {
+            "omschrijving": "Testen van hydraulische remmen",
+            "duur": 20, 
+            "prioriteit": "Laag",
+            "beroepstype": "Mechanisch Monteur",
+            "bevoegdheid": "Senior",
+            "fysieke_belasting": null,
+            "attractie": "River Rapids",
+            "is_buitenwerk": true
+        }, 
+        {
+            "omschrijving": "Administratietijd",
+            "aantal_taken": 4,
+            "duur": 8
+        }
+    ],
+    "totale_duur": 178
+}

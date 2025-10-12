@@ -8,66 +8,128 @@
     },
     "weergegevens": {},
     "dagtaken": [
-        [
-            0,
-            60,
-            "Taak: Vervanging van panelen"
-        ],
-        [
-            60,
-            105,
-            "Taak: Reparatie van algemene decoraties"
-        ],
-        [
-            105,
-            120,
-            "Taak: Herstel van decoratieve lampen (deels)"
-        ],
-        [
-            120,
-            135,
-            "Pauze 1 (15 min)"
-        ],
-        [
-            135,
-            180,
-            "Taak: Herstel van decoratieve lampen"
-        ],
-        [
-            180,
-            225,
-            "Taak: Reparatie van algemene decoraties"
-        ],
-        [
-            225,
-            240,
-            "Taak: Bijwerken van verf op attractiepanelen (deels)"
-        ],
-        [
-            240,
-            255,
-            "Pauze 2 (15 min)"
-        ],
-        [
-            255,
-            270,
-            "Taak: Bijwerken van verf op attractiepanelen"
-        ],
-        [
-            270,
-            300,
-            "Taak: Schilderen van decoratieve randen"
-        ],
-        [
-            300,
-            345,
-            "Taak: Aanbrengen van grondverf op relingen"
-        ],
-        [
-            345,
-            360,
-            "Taak: Bijwerken van verf op houten banken (deels)"
-        ]
+        {
+            "omschrijving": "Vervanging van panelen",
+            "duur": 60,
+            "start": 0,
+            "eind": 60,
+            "beroepstype": "Schilder",
+            "bevoegdheid": "Junior",
+            "fysieke_belasting": 12,
+            "attractie": "Looping Dragon",
+            "prioriteit": "laag"
+        },
+        {
+            "omschrijving": "Reparatie van algemene decoraties",
+            "duur": 45,
+            "start": 60,
+            "eind": 105,
+            "beroepstype": "Schilder",
+            "bevoegdheid": "Senior",
+            "fysieke_belasting": 20,
+            "attractie": null,
+            "prioriteit": "hoog"
+        },
+        {
+            "omschrijving": "Herstel van decoratieve lampen",
+            "duur": 15,
+            "start": 105,
+            "eind": 120,
+            "beroepstype": "Schilder",
+            "bevoegdheid": "Medior",
+            "fysieke_belasting": 8,
+            "attractie": "Sky Diver",
+            "prioriteit": "laag"
+        },
+        {
+            "omschrijving": "Pauze 1 (15 min)",
+            "duur": 15,
+            "start": 120,
+            "eind": 135
+        },
+        {
+            "omschrijving": "Herstel van decoratieve lampen",
+            "duur": 45,
+            "start": 135,
+            "eind": 180,
+            "beroepstype": "Schilder",
+            "bevoegdheid": "Medior",
+            "fysieke_belasting": 8,
+            "attractie": "Sky Diver",
+            "prioriteit": "laag"
+        },
+        {
+            "omschrijving": "Reparatie van algemene decoraties",
+            "duur": 45,
+            "start": 180,
+            "eind": 225,
+            "beroepstype": "Schilder",
+            "bevoegdheid": "Senior",
+            "fysieke_belasting": 20,
+            "attractie": null,
+            "prioriteit": "hoog"
+        },
+        {
+            "omschrijving": "Bijwerken van verf op attractiepanelen",
+            "duur": 15,
+            "start": 225,
+            "eind": 240,
+            "beroepstype": "Schilder",
+            "bevoegdheid": "Stagiair",
+            "fysieke_belasting": 5,
+            "attractie": "Sky Diver",
+            "prioriteit": "laag"
+        },
+        {
+            "omschrijving": "Pauze 2 (15 min)",
+            "duur": 15,
+            "start": 240,
+            "eind": 255
+        },
+        {
+            "omschrijving": "Bijwerken van verf op attractiepanelen",
+            "duur": 15,
+            "start": 255,
+            "eind": 270,
+            "beroepstype": "Schilder",
+            "bevoegdheid": "Stagiair",
+            "fysieke_belasting": 5,
+            "attractie": "Sky Diver",
+            "prioriteit": "laag"
+        },
+        {
+            "omschrijving": "Schilderen van decoratieve randen",
+            "duur": 30,
+            "start": 270,
+            "eind": 300,
+            "beroepstype": "Schilder",
+            "bevoegdheid": "Medior",
+            "fysieke_belasting": 6,
+            "attractie": "River Rapids",
+            "prioriteit": "laag"
+        },
+        {
+            "omschrijving": "Aanbrengen van grondverf op relingen",
+            "duur": 45,
+            "start": 300,
+            "eind": 345,
+            "beroepstype": "Schilder",
+            "bevoegdheid": "Stagiair",
+            "fysieke_belasting": 6,
+            "attractie": "Magic Forest",
+            "prioriteit": "laag"
+        },
+        {
+            "omschrijving": "Bijwerken van verf op houten banken",
+            "duur": 15,
+            "start": 345,
+            "eind": 360,
+            "beroepstype": "Schilder",
+            "bevoegdheid": "Stagiair",
+            "fysieke_belasting": 5,
+            "attractie": "Family Carousel",
+            "prioriteit": "laag"
+        }
     ],
     "totale_duur": 495
 }
